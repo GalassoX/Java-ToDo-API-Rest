@@ -94,6 +94,6 @@ public class ToDoController {
         Map<String, Object> response = new HashMap<>();
         boolean isDeleted = this.taskService.delete(id);
         response.put("message", isDeleted ? "Task deleted" : "Task not found");
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, isDeleted ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
     }
 }
