@@ -15,12 +15,16 @@ import java.util.stream.Collectors;
 @RestController
 public class ToDoController {
 
+
     @Autowired
     private TaskService taskService;
 
     @GetMapping(value = "/tasks")
     public List<Task> getTasks() {
-        return this.taskService.findAll();
+        Comparator<Task> taskComparator = Comparator.comparing(Task::getCreatedAt);
+        ArrayList<Task> tasks = this.taskService.findAll();
+        tasks.sort(taskComparator);
+        return tasks;
     }
 
     @GetMapping(path = "/tasks/{id}")
